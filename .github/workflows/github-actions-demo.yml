@@ -1,0 +1,29 @@
+name: GitHub Actions Demo
+
+on:
+  push:
+    branches: [ "main" ]
+    paths-ignore: [".github/**"]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: "15 6 * * 0" # This line represents every Sunday at 6:15 UTC
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Output event and branch name
+      run: |
+        echo "Event name: ${{ github.event_name }}"
+        echo "Branch name: ${{ github.ref }}"
+
+    - uses: actions/checkout@v4
+    - name: List all files
+      run: |
+        echo "Listing all files in the repository:"
+        tree
